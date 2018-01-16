@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using WebServicesCidades.Controllers.Models;
 
 namespace WebServicesCidades.Controllers
 {
@@ -8,8 +9,9 @@ namespace WebServicesCidades.Controllers
         public class PrimeiraController:Controller    
     {
         
+        
         //aqui vamos retornar apenas uma cidade
-        [HttpGet("{id}")]
+        //[HttpGet("{id}")]
         //primeiro fizemos o metodo abaixo comentado pois usa enumerable para voltar várias cidades
        /* public IEnumerable<string> Get(){
         [HttpGet]
@@ -19,6 +21,7 @@ namespace WebServicesCidades.Controllers
             };
         } */
 
+        /*
          public string Get(int id){
             return new string[]{
                 "Curitiba",
@@ -26,7 +29,19 @@ namespace WebServicesCidades.Controllers
                 "Salvador",
                 "Belo Horizonte"
             }[id];
-        }        
+        }  */
+
+        
+        Cidades cidade = new Cidades();
+        
+        [HttpGet]
+       // public string Get(){
+            //return null;
+       // }
+
+       public IEnumerable<Cidades> GetCidades(){
+           return cidade.Listar();
+       }
         
     }
 }

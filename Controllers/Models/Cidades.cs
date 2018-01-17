@@ -10,6 +10,7 @@ namespace WebServicesCidades.Controllers.Models
         public int Habitantes { get; set; }
 
 
+        /* cometei pois iremos usar agora o banco de dados
         public List<Cidades> Listar(){
             return new List<Cidades>(){
                 new Cidades{Id=10,Nome="Leme",Estado="SP",Habitantes=1234},
@@ -18,6 +19,7 @@ namespace WebServicesCidades.Controllers.Models
                 new Cidades{Id=22,Nome="Itu",Estado="SP",Habitantes=32567},
                 new Cidades{Id=40,Nome="Ponte Nova",Estado="MG",Habitantes=232}
             };            
-        }
+        } */
+
     }
 }

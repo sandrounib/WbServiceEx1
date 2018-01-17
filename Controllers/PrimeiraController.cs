@@ -51,10 +51,23 @@ namespace WebServicesCidades.Controllers
            return dao.Listar();
        } 
 
+       /*antes do post abaixo
        [HttpGet("{id}")]
        public Cidades Get(int id){
            return dao.Listar().Where(x => x.Id==id).FirstOrDefault();
-       }
+       } */
+
+       [HttpGet("{id}",Name="CidadeAtual")]
+       public Cidades Get(int id){
+           return dao.Listar().Where(x => x.Id==id).FirstOrDefault();
+       } 
+
+       [HttpPost]
+        public IActionResult Post([FromBody] Cidades cidades){
+            dao.Cadastro(cidades);
+            
+            return CreatedAtRoute("CidadeAtual",new{id=cidades.Id},cidades);
+        }
         
     }
 }

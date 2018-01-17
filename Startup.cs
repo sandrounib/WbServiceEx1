@@ -29,7 +29,7 @@ namespace WebServicesCidades
                 app.UseDeveloperExceptionPage();
             }
 
-            //adicionando o serviço que irei trabalhar
+            //adicionando o serviço que irei usar o serviço, além de adicionar o serviço acima tenho que dizer aqui que eu vou usá-lo
             app.UseMvc();
 
 

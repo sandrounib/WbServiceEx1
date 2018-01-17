@@ -46,6 +46,112 @@ namespace WebServicesCidades.Controllers.Models
             return cidades;
             
         }
+        public bool Cadastro(Cidades cidades){
+            bool resultado = false;
+            try
+            {
+                con = new SqlConnection(conexao);
+                con.Open();
+                cmd= new SqlCommand();
+                
+                cmd.Connection = con;
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText ="Insert into Cidades(nome,estado,habitantes) values(@n,@e,@h)";
+                cmd.Parameters.AddWithValue("@n",cidades.Nome);
+                cmd.Parameters.AddWithValue("@e",cidades.Estado);
+                cmd.Parameters.AddWithValue("@h",cidades.Habitantes);
+
+                int r = cmd.ExecuteNonQuery();
+                if(r > 0)
+                    resultado = true;
+
+                cmd.Parameters.Clear();
+            }
+            catch (SqlException se) 
+            {
+                
+                throw new Exception(se.Message);
+            }
+            catch(Exception ex){
+                throw new Exception (ex.Message);
+
+            }
+            finally{
+                con.Close();
+            }
+            return resultado;
+        }
+
+        public bool Atualizar(Cidades cidades){
+            bool resultado = false;
+            try
+            {
+                con = new SqlConnection(conexao);
+                con.Open();
+                cmd= new SqlCommand();
+                
+                cmd.Connection = con;
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText ="Update Cidades set nome= @n,estado= @e,habitantes= @h where id=@id";               
+                cmd.Parameters.AddWithValue("@i",cidades.Id);
+
+                int r = cmd.ExecuteNonQuery();
+                if(r > 0)
+                    resultado = true;
+
+                cmd.Parameters.Clear();
+            }
+            catch (SqlException se) 
+            {
+                
+                throw new Exception(se.Message);
+            }
+            catch(Exception ex){
+                throw new Exception (ex.Message);
+
+            }
+            finally{
+                con.Close();
+            }
+            return resultado;
+        }   
+
+         public bool Apagar(Cidades cidades){
+            bool resultado = false;
+            try
+            {
+                con = new SqlConnection(conexao);
+                con.Open();
+                cmd= new SqlCommand();
+                
+                cmd.Connection = con;
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText ="Delete Cidades where id=@id";               
+                cmd.Parameters.AddWithValue("@i",cidades.Id);
+
+                int r = cmd.ExecuteNonQuery();
+                if(r > 0)
+                    resultado = true;
+
+                cmd.Parameters.Clear();
+            }
+            catch (SqlException se) 
+            {
+                
+                throw new Exception(se.Message);
+            }
+            catch(Exception ex){
+                throw new Exception (ex.Message);
+
+            }
+            finally{
+                con.Close();
+            }
+            return resultado;
+        }       
         
     }
 }

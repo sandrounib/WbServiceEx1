@@ -33,15 +33,22 @@ namespace WebServicesCidades.Controllers
 
         
         Cidades cidade = new Cidades();
+        DAOCidades dao = new DAOCidades();
         
         [HttpGet]
        // public string Get(){
             //return null;
        // }
 
+       /*
        public IEnumerable<Cidades> GetCidades(){
            return cidade.Listar();
-       }
+       } */
+       
+       //aqui as cidades estão dentro da DAO
+       public IEnumerable<Cidades> GetCidades(){
+           return dao.Listar();
+       } 
         
     }
 }

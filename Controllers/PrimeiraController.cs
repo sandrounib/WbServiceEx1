@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebServicesCidades.Controllers.Models;
 
@@ -49,6 +50,11 @@ namespace WebServicesCidades.Controllers
        public IEnumerable<Cidades> GetCidades(){
            return dao.Listar();
        } 
+
+       [HttpGet("{id}")]
+       public Cidades Get(int id){
+           return dao.Listar().Where(x => x.Id==id).FirstOrDefault();
+       }
         
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using WebServicesCidades.Controllers.Models;
 
 namespace WebServicesCidades.Controllers
@@ -63,11 +64,41 @@ namespace WebServicesCidades.Controllers
        } 
 
        [HttpPost]
-        public IActionResult Post([FromBody] Cidades cidades){
-            dao.Cadastro(cidades);
+        public IActionResult PostCadastrar([FromBody] Cidades cidades){
+            dao.Cadastrar(cidades);
             
             return CreatedAtRoute("CidadeAtual",new{id=cidades.Id},cidades);
         }
+
+        [HttpPut]
+        public IActionResult Editar([FromBody] Cidades cidade){
+            try{
+                if(ModelState.IsValid){
+                    dao.Atualizar(cidade);
+                    return Ok(cidade);
+                }
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return BadRequest(allErrors);
+            }
+            catch(System.Exception e){
+                return BadRequest(e.Message);
+            }
+
+        }
+         [HttpDelete("{id}")]
+        public IActionResult Excluir(int id)
+        {
+
+            try
+            {
+                dao.Excluir(id);
+                return Ok(id);
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         
-    }
+    }    
 }

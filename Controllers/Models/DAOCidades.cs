@@ -46,7 +46,7 @@ namespace WebServicesCidades.Controllers.Models
             return cidades;
             
         }
-        public bool Cadastro(Cidades cidades){
+        public bool Cadastrar(Cidades cidades){
             bool resultado = false;
             try
             {
@@ -83,43 +83,49 @@ namespace WebServicesCidades.Controllers.Models
             return resultado;
         }
 
-        public bool Atualizar(Cidades cidades){
-            bool resultado = false;
+        public string Atualizar(Cidades cidades){
+            string msg;
             try
             {
-                con = new SqlConnection(conexao);
-                con.Open();
+                con = new SqlConnection(conexao);                
                 cmd= new SqlCommand();
                 
                 cmd.Connection = con;
 
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText ="Update Cidades set nome= @n,estado= @e,habitantes= @h where id=@id";               
-                cmd.Parameters.AddWithValue("@i",cidades.Id);
+                cmd.Parameters.AddWithValue("@n", cidades.Nome);
+                cmd.Parameters.AddWithValue("@e", cidades.Estado );
+                cmd.Parameters.AddWithValue("@h", cidades.Habitantes);
+                cmd.Parameters.AddWithValue("@i", cidades.Id);
+                con.Open();
 
                 int r = cmd.ExecuteNonQuery();
                 if(r > 0)
-                    resultado = true;
+                    msg = "Atualização efetuada";
+                else    
+                    msg = "Não foi possível atualizar";
 
                 cmd.Parameters.Clear();
             }
             catch (SqlException se) 
             {
                 
-                throw new Exception(se.Message);
+                throw new Exception("Erro ao tentar atualizar dados" + se.Message);
             }
             catch(Exception ex){
-                throw new Exception (ex.Message);
+                throw new Exception ("Erro inesperado " +  ex.Message);
+                throw;
 
             }
             finally{
                 con.Close();
             }
-            return resultado;
+            return msg;
         }   
 
-         public bool Apagar(Cidades cidades){
-            bool resultado = false;
+         public string Excluir(int Id){            
+            string msg;
             try
             {
                 con = new SqlConnection(conexao);
@@ -129,28 +135,31 @@ namespace WebServicesCidades.Controllers.Models
                 cmd.Connection = con;
 
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText ="Delete Cidades where id=@id";               
-                cmd.Parameters.AddWithValue("@i",cidades.Id);
+                cmd.CommandText ="delete from Cidades where id= @id";               
+                cmd.Parameters.AddWithValue("@id",Id);
 
                 int r = cmd.ExecuteNonQuery();
                 if(r > 0)
-                    resultado = true;
+                    msg = "Atualização efetuada";
+                else
+                    msg = "Não foi possível atualizar";
 
                 cmd.Parameters.Clear();
             }
             catch (SqlException se) 
             {
                 
-                throw new Exception(se.Message);
+                throw new Exception("Erro ao tentar atualizar" + se.Message);
             }
             catch(Exception ex){
-                throw new Exception (ex.Message);
+                throw new Exception ("Erro inesperado" + ex.Message);
+                throw;
 
             }
             finally{
                 con.Close();
             }
-            return resultado;
+            return msg;            
         }       
         
     }

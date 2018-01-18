@@ -97,7 +97,7 @@ namespace WebServicesCidades.Controllers.Models
                 cmd.Parameters.AddWithValue("@n", cidades.Nome);
                 cmd.Parameters.AddWithValue("@e", cidades.Estado );
                 cmd.Parameters.AddWithValue("@h", cidades.Habitantes);
-                cmd.Parameters.AddWithValue("@i", cidades.Id);
+                cmd.Parameters.AddWithValue("@id", cidades.Id);
                 con.Open();
 
                 int r = cmd.ExecuteNonQuery();
